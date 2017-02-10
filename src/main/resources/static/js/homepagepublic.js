@@ -85,7 +85,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  ];
 
 })
-.controller('registercontroller', function($scope,$http,$state,$ionicPopup) {
+.controller('registercontroller', function($scope,$http,$state,$ionicPopup,$ionicLoading) {
 	  $scope.gender=[
        	{text:"Male",value:"male"},
        	{text:"Female",value:"female"}
@@ -110,10 +110,21 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	  
 	  
 	  $scope.onsubmit = function (){
+
+		  
+		  $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Registering ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+		  });
+		  
 		  $scope.customer.fullname = $scope.name.first + " " +$scope.name.last;
 		  $scope.customer.gender = $scope.gendervalue.value;
+		  
 	  
-		  alert(JSON.stringify($scope.customer));  
 		  
 		  $http.post('/registerhere', JSON.stringify($scope.customer)).then(function (data) {
 			  	  console.log(data.data.code);
@@ -129,10 +140,24 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			        	$state.go('tabs.loginregister', {}, { location: false } );
 			        });
 			  	  };
+			  	  if(data.data.code == "400"){
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'Error',
+				           template: 'Username Already Exist!'
+				        });
+
+				        alertPopup.then(function(res) {
+		
+				        	
+				        });
+			  	  };
 			  	  
-			  }, function (data) {
+		  }, function (data) {
 				  console.log(data);
-			  });
+		  }).finally(function() {
+				    // called no matter success or failure
+			  $ionicLoading.hide();
+		  });
 		  
 	  };
 	  
