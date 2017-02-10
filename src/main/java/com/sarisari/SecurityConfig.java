@@ -72,8 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	        .loginPage("/login")
 	        .defaultSuccessUrl("/homepagecustomers", true)
 	        .permitAll()
-	        .and()
+	        .and()     
 	    .logout()
+	    	.logoutUrl("/logout")
+	    	.logoutSuccessUrl("/homepagepublic")
 	        .permitAll()
 	        .and()
 	        .csrf().disable();

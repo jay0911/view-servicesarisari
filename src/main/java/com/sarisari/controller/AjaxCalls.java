@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.sarisari.dto.RegisterFormDTO;
+import com.sarisari.dto.UserMaintenanceDTO;
 import com.sarisari.model.AjaxResponseBody;
 
 @RestController
@@ -18,7 +18,7 @@ public class AjaxCalls {
 	private final static String REGISTER_USER = "http://usermaintenance-service/registeruserservice";
 	
 	@PostMapping(value = "/registerhere")
-	public AjaxResponseBody registerHere(@RequestBody RegisterFormDTO registerform){
+	public AjaxResponseBody registerHere(@RequestBody UserMaintenanceDTO registerform){
 		
 		System.out.println(registerform.toString());
 		

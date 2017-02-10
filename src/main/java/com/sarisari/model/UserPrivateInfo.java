@@ -1,12 +1,18 @@
 package com.sarisari.model;
 
 public class UserPrivateInfo {
+	
 	private int id;
-	private int userid;
+	
 	private String username;
+	
 	private String password;
+
 	private String usergroup;
+	
 	private int points;
+	
+	private User user;
 	
 	public UserPrivateInfo(){}
 
@@ -16,14 +22,6 @@ public class UserPrivateInfo {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getUserid() {
-		return userid;
-	}
-
-	public void setUserid(int userid) {
-		this.userid = userid;
 	}
 
 	public String getUsername() {
@@ -56,5 +54,13 @@ public class UserPrivateInfo {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

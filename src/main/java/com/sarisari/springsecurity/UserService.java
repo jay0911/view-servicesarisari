@@ -12,6 +12,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.sarisari.dto.UserMaintenanceDTO;
+import com.sarisari.model.AjaxResponseBody;
+import com.sarisari.model.UserPrivateInfo;
 
 
 /**
@@ -21,10 +27,13 @@ import org.springframework.stereotype.Component;
  * this class is the gateway for login of the spring security
  */
 @Component
+@RestController
 public class UserService implements UserDetailsService {
 
-//	@Autowired
-//	private LogInService loginService;
+	@Autowired
+	RestTemplate rt;
+	
+	private final static String CHECK_CREDENTIALS = "http://usermaintenance-service/checkcredentials";
 	
 	/**
 	 * this method will check if the username in the database is valid then rejects or accepts the user when logging in
@@ -33,19 +42,18 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		
-/*		User user = loginService.checkCredentials(username);
+		UserMaintenanceDTO dto = new UserMaintenanceDTO();
+		dto.setUsername(username);
+
+		UserPrivateInfo[] userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserPrivateInfo[].class);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode(user.getPassword());
+		String hashedPassword = passwordEncoder.encode(userPrivateInfo[0].getPassword());
 		
-		if (user == null) {
+		if (userPrivateInfo.length == 0) {
 			throw new UsernameNotFoundException("User " + username + " not found");
 		}
-		
-		return new UserConfigurable(username, hashedPassword, user.getName(), user.getDetails(), createAuthorities(user.getPosition()));*/
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		return new UserConfigurable("jay",passwordEncoder.encode("jay"),"jay","jay",createAuthorities("ROLE_ADMIN"));
+		return new UserConfigurable(username, hashedPassword, userPrivateInfo[0].getUsername(), userPrivateInfo[0].getUsername(), createAuthorities(userPrivateInfo[0].getUsergroup()));
 	}
 	
 	/**
