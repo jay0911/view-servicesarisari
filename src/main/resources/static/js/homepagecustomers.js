@@ -4,6 +4,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     .state('tabs', {
       url: "/tab",
       abstract: true,
+      controller: 'maincontroller',
       templateUrl: "sidemenus/tabscustomerpage.html"
     })
     .state('tabs.home', {
@@ -11,6 +12,15 @@ angular.module('ionicApp', ['ionic','ui.router'])
       views: {
         'menuContent': {
           templateUrl: "sidemenus/home.html"
+        }
+      }
+    })
+     .state('tabs.userinfo', {
+      url: "/userinfo",
+      views: {
+        'menuContent': {
+          controller: 'userinfocontroller',
+          templateUrl: "sidemenus/userinfo.html"
         }
       }
     })
@@ -67,6 +77,47 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		    { id: 10 , name:"jayson" }
 		  ];
 
+})
+.controller('maincontroller', function($scope,$ionicLoading,$ionicPopup){
+	$scope.dologout = function (){
+	     var confirmPopup = $ionicPopup.confirm({
+	         title: 'Hello',
+	         template: 'Are you sure you want to logout?'
+	       });
+	       confirmPopup.then(function(res) {
+	         if(res) {  
+	  		 $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Loging out...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 200,
+		          showDelay: 500,
+		      duration: 3000
+			 }).then(function(){
+				 window.location.href = '/logout';
+			 });
+	         } else {
+	           console.log('You are not sure');
+	         }
+	     });
+	       
+
+	};
+})
+.controller('userinfocontroller', function($scope,$http){
+	var init = function () {
+		    $http({
+			  method: 'GET',
+			  url: '/currentuserinfo'
+			}).then(function successCallback(response) {
+			     console.log(response);
+			  }, function errorCallback(response) {
+				 console.log(response);
+			  });	 
+		};
+
+		init();
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {

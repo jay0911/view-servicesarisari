@@ -23,9 +23,6 @@
         <ion-item nav-clear menu-close ui-sref="tabs.shoplist" ui-sref-opts="{location:false}">
           Shoplist
         </ion-item>
-        <ion-item nav-clear menu-close ui-sref="tabs.usermaintenance" ui-sref-opts="{location:false}">
-          User Maintance
-        </ion-item>
         <ion-item nav-clear menu-close ui-sref="tabs.shopmaintenance" ui-sref-opts="{location:false}">
           Shop Maintenace
         </ion-item>
@@ -38,7 +35,7 @@
         <ion-item nav-clear menu-close ui-sref="tabs.userinfo" ui-sref-opts="{location:false}">
           User Info
         </ion-item>
-        <ion-item nav-clear menu-close href="/logout">
+        <ion-item nav-clear menu-close ng-click="dologout()">
           Log out
         </ion-item>
       </ion-list>
