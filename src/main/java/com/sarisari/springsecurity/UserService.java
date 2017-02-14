@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sarisari.dto.UserMaintenanceDTO;
-import com.sarisari.model.AjaxResponseBody;
 import com.sarisari.model.UserPrivateInfo;
 
 

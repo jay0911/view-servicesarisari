@@ -105,19 +105,105 @@ angular.module('ionicApp', ['ionic','ui.router'])
 
 	};
 })
-.controller('userinfocontroller', function($scope,$http){
+.controller('userinfocontroller', function($scope,$http,$ionicLoading,$ionicPopup,$state){
+	
+	  $scope.customer = {
+			  fullname:"",
+			  contactnumber:"",
+			  emailaddress:"",
+			  address:"",
+			  gender:"",
+			  username:"",
+			  password:""
+	  };
+	  
+	  $scope.name = {
+			  firstname:"",
+			  lastname:""
+	  };
+	  
+	  $scope.dataloaded = false;
+	  
+	  $scope.gender=[
+	       	{text:"Male",value:"male"},
+	       	{text:"Female",value:"female"}
+	      ];
+		  
+	  $scope.gendervalue = {value:""};
+	
 	var init = function () {
 		    $http({
 			  method: 'GET',
 			  url: '/currentuserinfo'
 			}).then(function successCallback(response) {
 			     console.log(response);
-			  }, function errorCallback(response) {
+			     $scope.customer.contactnumber = response.data.contactnumber;
+			     $scope.customer.address = response.data.address;
+			     $scope.customer.emailaddress = response.data.emailaddress;
+			     $scope.gendervalue.value = response.data.gender;
+			     $scope.customer.username = response.data.username;
+			     var fullnamesplit = response.data.fullname.split(" ");
+			     $scope.name.first = fullnamesplit[0];
+			     $scope.name.last = fullnamesplit[1];
+			     $scope.dataloaded = true;
+			}, function errorCallback(response) {
 				 console.log(response);
-			  });	 
+			});	 
 		};
 
 		init();
+		
+		  $scope.onsubmit = function (){
+			  
+			  $ionicLoading.show({
+			    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+			            '<p>Modifying ...</p>',
+			          animation: 'fade-in',
+			          noBackdrop: false,
+			          maxWidth: 500,
+			          showDelay: 0
+			  });
+			  
+			  $scope.customer.fullname = $scope.name.first + " " +$scope.name.last;
+			  $scope.customer.gender = $scope.gendervalue.value;
+			  
+		  
+			  
+			  $http.post('/modifyaccount', JSON.stringify($scope.customer)).then(function (data) {
+				  	  console.log(data.data.code);
+				  	  if(data.data.code == "200"){
+				  		  	   
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'Modifying',
+				           template: 'Success!'
+				        });
+
+				        alertPopup.then(function(res) {
+				        	//do after click ok
+				        	$state.go('tabs.home', {}, { location: false } );
+				        	window.location.href = '/homepagecustomers'
+				        });
+				  	  };
+				  	  if(data.data.code == "400"){
+					       var alertPopup = $ionicPopup.alert({
+					           title: 'Error',
+					           template: 'Modifying Failed!'
+					        });
+
+					        alertPopup.then(function(res) {
+					        	//do after click ok
+					        });
+				  	  };
+				  	  
+			  }, function (data) {
+					  console.log(data);
+			  }).finally(function() {
+					    // called no matter success or failure
+				  $ionicLoading.hide();
+			  });
+			  
+		  };
+		  
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {

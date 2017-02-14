@@ -1,4 +1,7 @@
-      <ion-view view-title="Register here">
+      <ion-view view-title="Modify User Data">
+       <ion-nav-buttons side="left">
+		    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
         <ion-content class="padding">
         <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()">
         	<div class="list">
@@ -42,10 +45,9 @@
 	        <div class="item item-divider">
 			   User log-in credentials
 			</div>
-			<label class="item item-icon-left item-icon-right">
+			<label class="item item-icon-left ">
         		<i class="icon ion-social-instagram-outline"></i>
-			    <input type="text" name="username" placeholder="username" ng-model="customer.username" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.username.$error.required" class="icon ion-heart">required</i>			
+			    {{ customer.username }}	   		
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-android-lock"></i>
@@ -55,7 +57,7 @@
 
 			</div>
 			
-			<button type="submit" class="button button-block button-balanced" ng-click="submitted=true">Submit</button>
+			<button type="submit" class="button button-block button-balanced" ng-click="submitted=true" ng-disabled="!dataloaded">Modify</button>
 		</form>
         </ion-content>
       </ion-view>

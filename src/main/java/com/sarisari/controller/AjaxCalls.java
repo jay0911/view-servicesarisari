@@ -19,6 +19,7 @@ public class AjaxCalls {
 	RestTemplate rt;
 	
 	private final static String REGISTER_USER = "http://usermaintenance-service/registeruserservice";
+	private final static String MODIFY_USER = "http://usermaintenance-service/modifyuser";
 	private final static String GET_USERINFO = "http://usermaintenance-service/getuserinfo";
 	
 	@PostMapping(value = "/registerhere")
@@ -27,6 +28,15 @@ public class AjaxCalls {
 		System.out.println(registerform.toString());
 		
 		return rt.postForObject(REGISTER_USER, registerform, AjaxResponseBody.class);
+	
+	}
+	
+	@PostMapping(value = "/modifyaccount")
+	public AjaxResponseBody modifyAccount(@RequestBody UserMaintenanceDTO modifyform){
+		
+		System.out.println(modifyform.toString());
+		
+		return rt.postForObject(MODIFY_USER, modifyform, AjaxResponseBody.class);
 	
 	}
 	
