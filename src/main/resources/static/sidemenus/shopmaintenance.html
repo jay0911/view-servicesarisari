@@ -1,0 +1,53 @@
+      <ion-view view-title="My Shop">
+       <ion-nav-buttons side="left">
+		    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
+		<ion-nav-buttons side="right">
+		    <button menu-toggle="right" class="button button-icon icon ion-arrow-right-a">Done</button>
+		</ion-nav-buttons>
+        <ion-content class="padding">
+        <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()">
+        	<div class="list">
+        	
+        	<div class="item item-divider">
+			   Shop Information
+			</div>
+        	
+        	<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-social-octocat"></i>
+			    <input type="text" name="name" placeholder="shop name" ng-model="shop.name" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.name.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-ios-chatbubble-outline"></i>
+			    <input type="text" name="details" placeholder="shop details" ng-model="shop.details" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-ios-cart"></i>
+			    <input type="text" name="productname" placeholder="product name" ng-model="shop.productname" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-ios-people"></i>
+			    <input type="text" name="productdetails" placeholder="price" ng-model="shop.productdetails" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-ios-film-outline"></i>
+			    <input type="file" name="productimagepath" placeholder="image path" ng-model="shop.productimagepath" />		   
+			</label>
+			<label class="item item-icon-left item-icon-right"> Quantity
+			    <div class="range range-assertive" >
+                    <i class="icon ion-ios7-sunny-outline"></i>
+                    <input type="range" min="0" max="1000" value="0" step="1" ng-model="shop.quantity">
+                    {{shop.quantity}}
+                    /1000
+                    <i class="icon ion-ios7-sunny"></i>
+                </div>
+            </label>
+
+		
+		</form>
+        </ion-content>
+      </ion-view>

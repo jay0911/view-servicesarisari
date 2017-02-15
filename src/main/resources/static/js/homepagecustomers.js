@@ -33,6 +33,15 @@ angular.module('ionicApp', ['ionic','ui.router'])
         }
       }
     })
+    .state('tabs.shopmaintenance', {
+        url: "/shopmaintenance",
+        views: {
+          'menuContent': {
+            templateUrl: "sidemenus/shopmaintenance.html",
+            controller: 'shopmaintenancectrl'
+          }
+        }
+    })
     ;
     
 
@@ -204,6 +213,14 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			  
 		  };
 		  
+})
+.controller('shopmaintenancectrl', function($scope) {
+	
+    $scope.shop= {
+            quantity:1
+        }
+
+
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
