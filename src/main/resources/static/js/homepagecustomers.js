@@ -214,13 +214,48 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  };
 		  
 })
-.controller('shopmaintenancectrl', function($scope) {
-	
+.controller('shopmaintenancectrl', function($scope,$http) {
+	$scope.file = "";
     $scope.shop= {
             quantity:1
         }
+    $scope.uploadFile = function(files){
+        var filename = files[0].name;
+        $scope.file = filename;
+        alert('file was selected: ' + filename);
+    };
+    
+    $scope.addProduct = function (){
+    	alert($scope.file);
+    	
+    	 var fd = new FormData();
+         fd.append('file', file);
+         $http.post(uploadUrl, fd, {
+             transformRequest: angular.identity,
+             headers: {'Content-Type': undefined}
+         })
+         .success(function(){
+         })
+         .error(function(){
+         });
+    };
 
-
+})
+.directive('customOnChange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeFunc = scope.$eval(attrs.customOnChange);
+      element.bind('change', function(event){
+		var files = event.target.files;
+		onChangeFunc(files);
+      });
+        
+      element.bind('click', function(){
+      	element.val('');
+      });
+    }
+  };
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
