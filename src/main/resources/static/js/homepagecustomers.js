@@ -225,6 +225,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
         alert('file was selected: ' + filename);
     };
     
+    $scope.isregistered = true;
+    
     $scope.addProduct = function (){
     	alert($scope.file);
     	
