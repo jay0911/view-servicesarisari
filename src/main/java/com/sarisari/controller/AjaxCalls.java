@@ -1,5 +1,6 @@
 package com.sarisari.controller;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.sarisari.dto.ShopMaintenanceDTO;
 import com.sarisari.dto.UserMaintenanceDTO;
 import com.sarisari.model.AjaxResponseBody;
 import com.sarisari.springsecurity.UserConfigurable;
@@ -46,5 +48,13 @@ public class AjaxCalls {
 		UserMaintenanceDTO dto = new UserMaintenanceDTO();
 		dto.setUsername(userdetails.getUsername());
 		return rt.postForObject(GET_USERINFO, dto, UserMaintenanceDTO.class);
+	}
+	
+	
+	@PostMapping(value = "/updateshop")
+	public ShopMaintenanceDTO updateShop(){
+		
+
+		return null;
 	}
 }

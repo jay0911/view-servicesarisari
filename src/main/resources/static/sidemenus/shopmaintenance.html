@@ -6,12 +6,12 @@
 		    <button menu-toggle="right" class="button button-icon icon ion-arrow-right-a"  ng-show="isregistered">Done</button>
 		</ion-nav-buttons>
         <ion-content class="padding">
-        <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()" ng-show="isregistered">
+        <form method="post" name="simpleionformshop" novalidation="" ng-submit="onsubmitShop()" ng-show="isregistered">
         	<div class="list">
         	
 		  <div class="item item-button-right" style="background-color:#f5f5f5;font-weight: bold;">
 		    Edit Shop
-		    <button class="button button-positive" ng-click="editShop()">
+		    <button class="button button-positive" type="submit" ng-click="shopsubmitted=true">
 		      <i class="icon ion-ios-upload-outline"></i>
 		    </button>
 		  </div>
@@ -19,35 +19,37 @@
         	<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-social-octocat"></i>
 			    <input type="text" name="name" placeholder="shop name" ng-model="shop.name" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.name.$error.required" class="icon ion-heart">required</i>			
+				<i  ng-show="shopsubmitted &amp;&amp; simpleionformshop.name.$error.required" class="icon ion-heart">required</i>			
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-ios-chatbubble-outline"></i>
 			    <input type="text" name="details" placeholder="shop details" ng-model="shop.details" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+				<i  ng-show="shopsubmitted &amp;&amp; simpleionformshop.details.$error.required" class="icon ion-heart">required</i>			
 			</label>
+			</div>
+		</form>
+			
+		 <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmitProduct()" ng-show="isregistered">
+		  <div class="list">
 		  <div class="item item-button-right" style="background-color:#f5f5f5;font-weight: bold;">
 		    Add product
-		    <button class="button button-positive" ng-click="addProduct()">
+		    <button class="button button-positive" type="submit" ng-click="submitted=true">
 		      <i class="icon ion-ios-cloud-upload-outline"></i>
 		    </button>
 		  </div>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-ios-cart"></i>
 			    <input type="text" name="productname" placeholder="product name" ng-model="shop.productname" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+				<i  ng-show="submitted &amp;&amp; simpleionform.productname.$error.required" class="icon ion-heart">required</i>			
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-ios-people"></i>
 			    <input type="text" name="productdetails" placeholder="price" ng-model="shop.productdetails" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.details.$error.required" class="icon ion-heart">required</i>			
+				<i  ng-show="submitted &amp;&amp; simpleionform.productdetails.$error.required" class="icon ion-heart">required</i>			
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-ios-film-outline"></i>
-			    <input type="file" name="productimagepath"  custom-on-change="uploadFile"  />	
-			    <span class="item-note">
-			      Product Image
-			    </span>	   
+			    <input type="file" name="productimagepath"  custom-on-change="uploadFile"  />	 
 			</label>
 			<label class="item item-icon-left item-icon-right"> Quantity
 			    <div class="range range-assertive" >
@@ -69,7 +71,7 @@
         	
 		  <div class="item item-button-right" style="background-color:#f5f5f5;font-weight: bold;">
 		    Make a Shop
-		    <button class="button button-positive" ng-click="makeShop()">
+		    <button class="button button-positive" type="submit" ng-click="submitted=true">
 		      <i class="icon ion-ios-upload-outline"></i>
 		    </button>
 		  </div>

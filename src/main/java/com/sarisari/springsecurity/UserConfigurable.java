@@ -16,12 +16,23 @@ public class UserConfigurable extends User{
 	
 	private String name;
 	private String details;
-	
+	private String storename;
+	private int storeid;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9168810770287668136L;
 
+	public UserConfigurable(String username, String password,String name,String details,String storename,int storeid,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities);
+		// TODO Auto-generated constructor stub
+		this.setDetails(details);
+		this.setName(name);
+		this.setStoreid(storeid);
+		this.setStorename(storename);
+	}
+	
 	public UserConfigurable(String username, String password,String name,String details,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -44,6 +55,22 @@ public class UserConfigurable extends User{
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public String getStorename() {
+		return storename;
+	}
+
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+
+	public int getStoreid() {
+		return storeid;
+	}
+
+	public void setStoreid(int storeid) {
+		this.storeid = storeid;
 	}
 
 }
