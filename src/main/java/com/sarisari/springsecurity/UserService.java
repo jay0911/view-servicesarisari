@@ -44,15 +44,15 @@ public class UserService implements UserDetailsService {
 		UserMaintenanceDTO dto = new UserMaintenanceDTO();
 		dto.setUsername(username);
 
-		UserPrivateInfo[] userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserPrivateInfo[].class);
+		UserMaintenanceDTO userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserMaintenanceDTO.class);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode(userPrivateInfo[0].getPassword());
+		String hashedPassword = passwordEncoder.encode(userPrivateInfo.getPassword());
 		
-		if (userPrivateInfo.length == 0) {
+		if (userPrivateInfo == null) {
 			throw new UsernameNotFoundException("User " + username + " not found");
 		}
-		return new UserConfigurable(username, hashedPassword, userPrivateInfo[0].getUsername(), userPrivateInfo[0].getUsername(), createAuthorities(userPrivateInfo[0].getUsergroup()));
+		return new UserConfigurable(username, hashedPassword, userPrivateInfo.getUsername(), userPrivateInfo.getUsername(), "storename", 17 , createAuthorities(userPrivateInfo.getUsergroup()));
 	}
 	
 	/**
