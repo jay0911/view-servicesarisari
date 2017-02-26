@@ -225,7 +225,26 @@ angular.module('ionicApp', ['ionic','ui.router'])
         alert('file was selected: ' + filename);
     };
     
-    $scope.isregistered = true;
+    var init = function () {
+	    $http({
+		  method: 'GET',
+		  url: '/checkshop'
+		}).then(function successCallback(response) {
+		     console.log(response);
+		     if(response.data.code == "200"){
+		    	 $scope.isregistered = true;
+		     }
+		     if(response.data.code == "400"){
+		    	 $scope.isregistered = false;
+		     }
+		}, function errorCallback(response) {
+			 console.log(response);
+		});	 
+	};
+
+	init();
+    
+
     
     $scope.addProduct = function (){
     	alert($scope.file);

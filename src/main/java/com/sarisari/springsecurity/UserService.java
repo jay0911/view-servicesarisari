@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
 		if (userPrivateInfo == null) {
 			throw new UsernameNotFoundException("User " + username + " not found");
 		}
-		return new UserConfigurable(username, hashedPassword, userPrivateInfo.getUsername(), userPrivateInfo.getUsername(), "storename", 17 , createAuthorities(userPrivateInfo.getUsergroup()));
+		return new UserConfigurable(username, hashedPassword, userPrivateInfo.getUsername(), userPrivateInfo.getUsername(), userPrivateInfo.getStorename(), userPrivateInfo.getStoreid() , createAuthorities(userPrivateInfo.getUsergroup()));
 	}
 	
 	/**
