@@ -214,10 +214,13 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  };
 		  
 })
-.controller('shopmaintenancectrl', function($scope,$http) {
+.controller('shopmaintenancectrl', function($scope,$http,$ionicLoading) {
 	$scope.file = "";
+	$scope.isregistered = true;
     $scope.shop= {
-            quantity:1
+            quantity:1,
+            name:"",
+            details:"",
         }
     $scope.uploadFile = function(files){
         var filename = files[0].name;
@@ -244,7 +247,39 @@ angular.module('ionicApp', ['ionic','ui.router'])
 
 	init();
     
+	$scope.onregister = function (){
+		console.log("registered");
+		
+		  $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Saving ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+		  });		  
+		  
+		  $http.post('/registershop', JSON.stringify($scope.shop)).then(function (data) {			  		  	   
+			      var alertPopup = $ionicPopup.alert({
+			           title: 'Modifying',
+			           template: 'Success!'
+			      });
+	  	  
+				  $scope.isregistered = true;
+			  	  
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+			  $ionicLoading.hide();
 
+		  });
+		
+		
+		
+		
+		
+	};
     
     $scope.addProduct = function (){
     	alert($scope.file);
