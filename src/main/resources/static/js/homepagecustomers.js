@@ -234,10 +234,11 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  url: '/checkshop'
 		}).then(function successCallback(response) {
 		     console.log(response);
-		     if(response.data.code == "200"){
+		     if(response.data.details != "400"){
 		    	 $scope.isregistered = true;
-		     }
-		     if(response.data.code == "400"){
+		    	 $scope.shop.name = response.data.name;
+		    	 $scope.shop.details = response.data.details
+		     }else{
 		    	 $scope.isregistered = false;
 		     }
 		}, function errorCallback(response) {
@@ -248,6 +249,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	init();
     
 	$scope.onregister = function (){
+		$scope.isregistered = true;
 		console.log("registered");
 		
 		  $ionicLoading.show({
@@ -258,15 +260,12 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		          maxWidth: 500,
 		          showDelay: 0
 		  });		  
-		  
+		  console.log(JSON.stringify($scope.shop));
 		  $http.post('/registershop', JSON.stringify($scope.shop)).then(function (data) {			  		  	   
 			      var alertPopup = $ionicPopup.alert({
 			           title: 'Modifying',
 			           template: 'Success!'
-			      });
-	  	  
-				  $scope.isregistered = true;
-			  	  
+			      });  	  
 		  }, function (data) {
 				  console.log(data);
 		  }).finally(function() {

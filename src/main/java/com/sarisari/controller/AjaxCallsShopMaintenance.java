@@ -18,21 +18,20 @@ public class AjaxCallsShopMaintenance {
 	@Autowired
 	RestTemplate rt;
 	
-	private static final String REGISTER_SHOP = "";
+	private static final String REGISTER_SHOP = "http://shop-service/savestore";
 	
 	@GetMapping(value = "/checkshop")
-	public AjaxResponseBody checkShop(){
+	public ShopMaintenanceDTO checkShop(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserConfigurable userDetails = (UserConfigurable) authentication.getPrincipal();
-		AjaxResponseBody response = new AjaxResponseBody();
+		ShopMaintenanceDTO retDTO = new ShopMaintenanceDTO();
 		if(userDetails.getStoreid() != 0){
-			response.setMsg("shop exist");
-			response.setCode("200");
+			retDTO.setName(userDetails.getStorename());
+			retDTO.setDetails(userDetails.getStoredetails());
 		}else{
-			response.setMsg("shop not exist");
-			response.setCode("400");
+			retDTO.setDetails("400");
 		}
-		return response;
+		return retDTO;
 	}
 	
 	@PostMapping(value="/registershop")
@@ -41,6 +40,7 @@ public class AjaxCallsShopMaintenance {
 		UserConfigurable userDetails = (UserConfigurable) authentication.getPrincipal();
 		
 		AjaxResponseBody response = new AjaxResponseBody();
+		shopMaintenanceDTO.setUserid(userDetails.getUserid());
 		ShopMaintenanceDTO responsedto = rt.postForObject(REGISTER_SHOP, shopMaintenanceDTO, ShopMaintenanceDTO.class);
 		
 		userDetails.setStoreid(responsedto.getShopid());

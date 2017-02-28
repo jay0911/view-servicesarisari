@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sarisari.dto.UserMaintenanceDTO;
-import com.sarisari.model.UserPrivateInfo;
 
 
 /**
@@ -37,6 +36,7 @@ public class UserService implements UserDetailsService {
 	/**
 	 * this method will check if the username in the database is valid then rejects or accepts the user when logging in
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
 		if (userPrivateInfo == null) {
 			throw new UsernameNotFoundException("User " + username + " not found");
 		}
-		return new UserConfigurable(username, hashedPassword, userPrivateInfo.getUsername(), userPrivateInfo.getUsername(), userPrivateInfo.getStorename(), userPrivateInfo.getStoreid() , createAuthorities(userPrivateInfo.getUsergroup()));
+		return new UserConfigurable(userPrivateInfo.getUserid(),username, hashedPassword, userPrivateInfo.getUsername(), userPrivateInfo.getUsername(), userPrivateInfo.getStorename(),userPrivateInfo.getStoredetails(), userPrivateInfo.getStoreid() , createAuthorities(userPrivateInfo.getUsergroup()));
 	}
 	
 	/**

@@ -14,16 +14,18 @@ import org.springframework.security.core.userdetails.User;
  */
 public class UserConfigurable extends User{
 	
+	private int userid;
 	private String name;
 	private String details;
 	private String storename;
 	private int storeid;
+	private String storedetails;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9168810770287668136L;
 
-	public UserConfigurable(String username, String password,String name,String details,String storename,int storeid,
+	public UserConfigurable(int userid,String username, String password,String name,String details,String storename,String storedetails,int storeid,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		// TODO Auto-generated constructor stub
@@ -31,14 +33,17 @@ public class UserConfigurable extends User{
 		this.setName(name);
 		this.setStoreid(storeid);
 		this.setStorename(storename);
+		this.setUserid(userid);
+		this.setStoredetails(storedetails);
 	}
 	
-	public UserConfigurable(String username, String password,String name,String details,
+	public UserConfigurable(int userid,String username, String password,String name,String details,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		// TODO Auto-generated constructor stub
 		this.setDetails(details);
 		this.setName(name);
+		this.setUserid(userid);
 	}
 
 	public String getName() {
@@ -71,6 +76,22 @@ public class UserConfigurable extends User{
 
 	public void setStoreid(int storeid) {
 		this.storeid = storeid;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public String getStoredetails() {
+		return storedetails;
+	}
+
+	public void setStoredetails(String storedetails) {
+		this.storedetails = storedetails;
 	}
 
 }
